@@ -26,8 +26,13 @@ class _HomePage extends State<HomePage> {
 
     return Scaffold(
       body: Stack(
-        children: const [
+        children: [
           // TODO: create list of small pics. (with title and author)
+          ListView.builder(itemBuilder: (BuildContext context, int count) {
+            return Container(
+              color: Colors.black,
+            );
+          })
         ],
       ),
     );

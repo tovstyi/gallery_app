@@ -1,42 +1,33 @@
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:gallery_app/features/gallery/presentation/bloc/home_page/home_page_cubit.dart';
-import 'package:gallery_app/features/gallery/presentation/bloc/view_photo/view_photo_cubit.dart';
 import 'package:get_it/get_it.dart';
 
 import 'core/network/network_info.dart';
+import 'features/gallery/data/datasources/remote_gallery_datasource.dart';
+import 'features/gallery/data/repositories/gallery_repository_impl.dart';
+import 'features/gallery/domain/usecases/load_gallery_posts_usecase.dart';
+import 'features/gallery/presentation/bloc/home_page/home_page_cubit.dart';
+import 'features/gallery/presentation/bloc/view_photo/view_photo_cubit.dart';
 
 final sl = GetIt.instance;
 
 Future<void> init() async {
   /// BLoCs
-  sl.registerFactory<HomePageCubit>(() => HomePageCubit());
+  sl.registerFactory<HomePageCubit>(
+      () => HomePageCubit(loadGalleryPostsUseCase: sl()));
   sl.registerFactory<ViewPhotoCubit>(() => ViewPhotoCubit());
 
   /// Use-cases
-  // sl.registerFactory<LoginUseCase>(() => LoginUseCase(sl()));
+  sl.registerFactory<LoadGalleryPostsUseCase>(
+      () => LoadGalleryPostsUseCase(sl()));
 
-  /// Repository
-  // sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(
-  //     remoteDatasource: sl(), networkInfo: sl(), localDatasource: sl()));
+  /// Repositories
+  sl.registerLazySingleton<GalleryRepositoryImpl>(() => GalleryRepositoryImpl(
+      remoteDataSource: sl(), localDataSource: sl(), networkInfo: sl()));
 
   /// Data sources
-  // sl.registerLazySingleton<RemoteAuthDatasource>(() => RemoteDatasourceImpl(
-  //     localDatasourceMyLease: sl(),
-  //     localAuthDatasource: sl(),
-  //     localCollaborativesDatasource: sl()));
-  // sl.registerLazySingleton<LocalAuthDatasource>(() => LocalDatasourceImpl());
-  // sl.registerLazySingleton<RemoteDatasourceMyLease>(
-  //         () => RemoteDatasourceMyLeaseImpl(localDatasource: sl()));
-
-  //         () => RemoteChatDatasourceImpl(localAuthDatasource: sl(), localChatDatasource: sl()));
-  // sl.registerLazySingleton<LocalCollaborativesDatasource>(
-  //         () => LocalCollaborativesDatasourceImpl());
-  // sl.registerLazySingleton<LocalDataSourceMyPoints>(
-  //         () => LocalDataSourceMyPointsImpl());
-  // sl.registerLazySingleton<LocalChatDatasource>(() => LocalChatDatasourceImpl());
-  // sl.registerLazySingleton<LocalIncidentDatasource>(() => LocalIncidentDatasourceImpl());
-  // sl.registerLazySingleton<RemoteIncidentDatasource>(() => RemoteIncidentDatasourceImpl(sl()));
+  sl.registerLazySingleton<GalleryRemoteDataSourceImpl>(
+      () => GalleryRemoteDataSourceImpl(localDataSource: sl()));
 
   /// Core
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));

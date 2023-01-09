@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/exceptions/failures.dart';
-import '../entities/gallery_entity.dart';
+import '../entities/post_entity.dart';
 import '../repositories/gallery_repository.dart';
 
 class LoadGalleryPostsUseCase {
@@ -9,7 +9,7 @@ class LoadGalleryPostsUseCase {
 
   LoadGalleryPostsUseCase(this.repository);
 
-  Future<Either<Failure, GalleryEntity>> call() async {
+  Future<Either<Failure, List<PostEntity>>> call() async {
     return await repository.loadGalleryPosts();
   }
 }

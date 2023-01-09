@@ -46,4 +46,22 @@ class UserEntity extends Equatable {
         forHire,
         social
       ];
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'username': username,
+      'first_name': firstName,
+      'last_name': lastName,
+      'bio': bio,
+      'links': links,
+      'profile_image': profileImage,
+      'totalCollections': totalCollections,
+      'totalLikes': totalLikes,
+      'totalPhotos': totalPhotos,
+      'accepted_tos': acceptedTos,
+      'for_hire': forHire,
+      'social': social
+    };
+  }
 }

@@ -39,4 +39,19 @@ class PostModel extends PostEntity {
         likedByUser: json["liked_by_user"] as bool,
         user: UserModel.fromJson(json["user"]));
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'width': width,
+      'height': height,
+      'color': color,
+      'blur_hash': blurHash,
+      'description': description,
+      'alt_description': altDescription,
+      'urls': imageUrls,
+      'liked_by_user': likedByUser,
+      'user': user.toJson()
+    };
+  }
 }
