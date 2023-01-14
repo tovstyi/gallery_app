@@ -2,6 +2,7 @@ import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 
+import 'core/bloc/session_bloc.dart';
 import 'core/network/network_info.dart';
 import 'features/gallery/data/datasources/local_gallery_datasource.dart';
 import 'features/gallery/data/datasources/remote_gallery_datasource.dart';
@@ -15,14 +16,7 @@ final sl = GetIt.instance;
 
 Future<void> init() async {
   /// BLoCs
-  // TODO: add session bloc
-  // sl.registerLazySingleton<SessionBloc>(() => SessionBloc(
-  //       localDatasource: sl(),
-  //       usecaseTest: sl(),
-  //       loginUseCase: sl(),
-  //       networkInfo: sl(),
-  //       navigatorKey: sl(),
-  //     ));
+  sl.registerLazySingleton<SessionBloc>(() => SessionBloc());
   sl.registerFactory<HomePageCubit>(
       () => HomePageCubit(loadGalleryPostsUseCase: sl()));
   sl.registerFactory<ViewPhotoCubit>(() => ViewPhotoCubit());

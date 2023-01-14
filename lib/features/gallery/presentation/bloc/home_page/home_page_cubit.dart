@@ -19,7 +19,7 @@ class HomePageCubit extends Cubit<HomePageState> {
     return response.fold((failure) {
       if (failure is UnauthorizedFailure) {
         return emit(HomePageUnauthorized());
-      } else if (failure is ServerFailure) {
+      } else if (failure is ServerFailure || failure is SocketFailure) {
         return emit(HomePageServerFailure());
       } else {
         return emit(LoadingCachedGalleryPostsFailure());

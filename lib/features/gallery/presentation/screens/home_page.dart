@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../domain/entities/post_entity.dart';
 import '../bloc/home_page/home_page_cubit.dart';
 import '../widgets/gallery_post.dart';
+import '../widgets/gallery_post_skeleton.dart';
 import '../widgets/post_loading_failure.dart';
 
 class HomePage extends StatefulWidget {
@@ -36,31 +37,31 @@ class _HomePage extends State<HomePage> {
       },
       builder: (context, state) {
         return BlocBuilder<HomePageCubit, HomePageState>(
-          buildWhen: (oldState, newState) =>
-              newState is HomePageInitial ||
-              newState is GalleryPostsLoaded ||
-              newState is HomePageServerFailure,
+          buildWhen: (oldState, newState) => oldState != newState,
           builder: (context, state) {
             return Stack(
               children: [
-                Visibility(
-                  // visible: state is! HomePageServerFailure,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: width > 412 ? height * 0.01 : height * 0.015),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      vertical: width > 412 ? height * 0.01 : height * 0.015),
+                  child: RefreshIndicator(
+                    color: Colors.green,
+                    onRefresh: () async =>
+                        context.read<HomePageCubit>().loadGalleryPosts(),
                     child: ListView.builder(
-                        physics: state is! GalleryPostsLoaded
-                            ? const NeverScrollableScrollPhysics()
-                            : const AlwaysScrollableScrollPhysics(),
+                        physics: const AlwaysScrollableScrollPhysics(),
                         scrollDirection: Axis.vertical,
-                        itemCount: state is GalleryPostsLoaded
-                            ? state.galleryPosts.length
-                            : 0,
-                        itemBuilder: (BuildContext context, int index) {
-                          return GalleryPost(
-                              post: galleryPosts[index],
-                              color: Colors.amberAccent);
-                        }),
+                        itemCount: state is LoadingGalleryPosts
+                            ? 6
+                            : state is GalleryPostsLoaded
+                                ? state.galleryPosts.length
+                                : 0,
+                        itemBuilder: (BuildContext context, int index) =>
+                            state is! LoadingGalleryPosts
+                                ? GalleryPost(
+                                    post: galleryPosts[index],
+                                    color: Colors.amberAccent)
+                                : const GalleryPostSkeleton()),
                   ),
                 ),
                 Visibility(
@@ -78,9 +79,6 @@ class _HomePage extends State<HomePage> {
                     child: const LoadingFailure(
                       errorText: "Authorise to load posts",
                     )),
-                Visibility(
-                    visible: state is LoadingGalleryPosts,
-                    child: const Center(child: CircularProgressIndicator()))
               ],
             );
           },

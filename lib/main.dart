@@ -6,7 +6,8 @@ import 'core/bloc/session_bloc.dart';
 import 'core/route.dart' as router;
 import 'features/gallery/presentation/bloc/home_page/home_page_cubit.dart';
 import 'features/gallery/presentation/screens/home_page.dart';
-import 'features/gallery/presentation/widgets/home_page_app_bar.dart';
+import 'features/gallery/presentation/widgets/custom_app_bar.dart';
+import 'features/gallery/presentation/widgets/custom_app_bar_title.dart';
 import 'injection_container.dart';
 import 'injection_container.dart' as di;
 
@@ -50,9 +51,12 @@ class _ContentWrapState extends State<ContentWrap> {
     return BlocProvider<HomePageCubit>(
       create: (context) => sl<HomePageCubit>(),
       child: Scaffold(
-          appBar: HomePageAppBar(
+          appBar: CustomAppBar(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
+            title: const CustomAppBarTitle(
+              text: 'Gallery',
+            ),
           ),
           resizeToAvoidBottomInset: false,
           body: const HomePage()),

@@ -77,8 +77,8 @@ class _GalleryPost extends State<GalleryPost> {
     }
 
     return GestureDetector(
-      // TODO: open screen with full photo
-      onTap: () => Navigator.pushNamed(context, 'view_photo_page'),
+      onTap: () => Navigator.pushNamed(context, 'view_photo_page',
+          arguments: {'link': widget.post.imageUrls['regular']}),
       child: Padding(
         padding: EdgeInsets.symmetric(
             horizontal: width > 412 ? width * 0.06 : width * 0.06,

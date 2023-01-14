@@ -31,8 +31,9 @@ class GalleryLocalDataSourceImpl implements GalleryLocalDataSource {
     final jsonString = prefs.getString(cachedGalleryKey);
 
     if (jsonString != null) {
-      return Future.value(
-          json.decode(jsonString).map((i) => PostModel.fromJson(i)).toList());
+      return ((json.decode(jsonString) as List<dynamic>)
+          .map((i) => PostModel.fromJson(i))
+          .toList());
     } else {
       throw CacheException();
     }
