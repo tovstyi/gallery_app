@@ -10,7 +10,7 @@ class PostEntity extends Equatable {
   final String blurHash;
   final String? description;
   final String? altDescription;
-  final Map<String, String> imageUrls;
+  final dynamic imageUrls;
   final bool likedByUser;
   final UserEntity user;
 

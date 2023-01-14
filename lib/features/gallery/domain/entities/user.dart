@@ -6,14 +6,14 @@ class UserEntity extends Equatable {
   final String firstName;
   final String? lastName;
   final String? bio;
-  final Map<String, String>? links;
-  final Map<String, String>? profileImage;
+  final dynamic links;
+  final dynamic profileImage;
   final int totalCollections;
   final int totalLikes;
   final int totalPhotos;
   final bool acceptedTos;
   final bool forHire;
-  final Map<String, String>? social;
+  final dynamic social;
 
   const UserEntity(
       {required this.id,

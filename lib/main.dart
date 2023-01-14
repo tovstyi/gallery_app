@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gallery_app/core/route.dart' as router;
 
+import 'core/bloc/session_bloc.dart';
+import 'core/route.dart' as router;
 import 'features/gallery/presentation/bloc/home_page/home_page_cubit.dart';
 import 'features/gallery/presentation/screens/home_page.dart';
+import 'features/gallery/presentation/widgets/home_page_app_bar.dart';
 import 'injection_container.dart';
+import 'injection_container.dart' as di;
 
-main() {
+main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+  await di.init();
   runApp(const GalleryApp());
 }
 
@@ -19,14 +23,17 @@ class GalleryApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Gallery App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      routes: router.Route.routes,
-      home: const ContentWrap(),
-    );
+    return BlocProvider<SessionBloc>(
+        create: (context) => sl<SessionBloc>(),
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Gallery App',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          routes: router.Route.routes,
+          home: const ContentWrap(),
+        ));
   }
 }
 
@@ -42,7 +49,13 @@ class _ContentWrapState extends State<ContentWrap> {
   Widget build(BuildContext context) {
     return BlocProvider<HomePageCubit>(
       create: (context) => sl<HomePageCubit>(),
-      child: const Scaffold(resizeToAvoidBottomInset: false, body: HomePage()),
+      child: Scaffold(
+          appBar: HomePageAppBar(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+          ),
+          resizeToAvoidBottomInset: false,
+          body: const HomePage()),
     );
   }
 }
