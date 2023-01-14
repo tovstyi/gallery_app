@@ -11,7 +11,7 @@ class PostModel extends PostEntity {
     required String blurHash,
     String? description,
     String? altDescription,
-    required Map<String, String> imageUrls,
+    required dynamic imageUrls,
     required bool likedByUser,
     required UserEntity user,
   }) : super(
@@ -26,17 +26,32 @@ class PostModel extends PostEntity {
             likedByUser: likedByUser,
             user: user);
 
-  factory PostModel.fromJson(Map<String, dynamic> json) {
+  factory PostModel.fromJson(Map<String, dynamic> jsonResponse) {
     return PostModel(
-        id: json["id"] as String,
-        width: json["width"] as int,
-        height: json["height"] as int,
-        color: json["color"] as String,
-        blurHash: json["blur_hash"] as String,
-        description: json["description"] ?? String,
-        altDescription: json["alt_description"] ?? String,
-        imageUrls: json["urls"] as Map<String, String>,
-        likedByUser: json["liked_by_user"] as bool,
-        user: UserModel.fromJson(json["user"]));
+        id: jsonResponse["id"] as String,
+        width: jsonResponse["width"] as int,
+        height: jsonResponse["height"] as int,
+        color: jsonResponse["color"] as String,
+        blurHash: jsonResponse["blur_hash"] as String,
+        description: jsonResponse["description"] as String?,
+        altDescription: jsonResponse["alt_description"] as String?,
+        imageUrls: jsonResponse["urls"] as dynamic,
+        likedByUser: jsonResponse["liked_by_user"] as bool,
+        user: UserModel.fromJson(jsonResponse["user"]));
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'width': width,
+      'height': height,
+      'color': color,
+      'blur_hash': blurHash,
+      'description': description,
+      'alt_description': altDescription,
+      'urls': imageUrls,
+      'liked_by_user': likedByUser,
+      'user': user.toJson()
+    };
   }
 }

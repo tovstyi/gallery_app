@@ -18,7 +18,7 @@ class ServerFailure extends Failure {
 
 class CacheFailure extends Failure {}
 
-class NetworkConnectionFailure extends Failure {}
+// class NetworkConnectionFailure extends Failure {}
 
 class ValidationFailure extends Failure {
   final String field;

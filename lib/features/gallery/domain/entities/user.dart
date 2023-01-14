@@ -6,14 +6,14 @@ class UserEntity extends Equatable {
   final String firstName;
   final String? lastName;
   final String? bio;
-  final Map<String, String>? links;
-  final Map<String, String>? profileImage;
+  final dynamic links;
+  final dynamic profileImage;
   final int totalCollections;
   final int totalLikes;
   final int totalPhotos;
   final bool acceptedTos;
   final bool forHire;
-  final Map<String, String>? social;
+  final dynamic social;
 
   const UserEntity(
       {required this.id,
@@ -46,4 +46,22 @@ class UserEntity extends Equatable {
         forHire,
         social
       ];
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'username': username,
+      'first_name': firstName,
+      'last_name': lastName,
+      'bio': bio,
+      'links': links,
+      'profile_image': profileImage,
+      'totalCollections': totalCollections,
+      'totalLikes': totalLikes,
+      'totalPhotos': totalPhotos,
+      'accepted_tos': acceptedTos,
+      'for_hire': forHire,
+      'social': social
+    };
+  }
 }
