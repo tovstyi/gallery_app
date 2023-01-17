@@ -56,34 +56,32 @@ class _ViewPhotoPage extends State<ViewPhotoPage> {
               ),
               body: Stack(
                 children: [
-                  Expanded(
-                    child: Padding(
-                        padding: EdgeInsets.all(
-                            width > 412 ? height * 0.03 : height * 0.02),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(height * 0.03),
-                          child: Image.network(
-                            link,
-                            fit: BoxFit.fitHeight,
-                            height: height,
-                            width: width,
-                            loadingBuilder: (BuildContext context, Widget child,
-                                ImageChunkEvent? loadingProgress) {
-                              if (loadingProgress == null) return child;
-                              return Center(
-                                child: CircularProgressIndicator(
-                                  color: Colors.green,
-                                  value: loadingProgress.expectedTotalBytes !=
-                                          null
-                                      ? loadingProgress.cumulativeBytesLoaded /
-                                          loadingProgress.expectedTotalBytes!
-                                      : null,
-                                ),
-                              );
-                            },
-                          ),
-                        )),
-                  )
+                  Padding(
+                      padding: EdgeInsets.all(
+                          width > 412 ? height * 0.03 : height * 0.02),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(height * 0.03),
+                        child: Image.network(
+                          link,
+                          fit: BoxFit.fitHeight,
+                          height: height,
+                          width: width,
+                          loadingBuilder: (BuildContext context, Widget child,
+                              ImageChunkEvent? loadingProgress) {
+                            if (loadingProgress == null) return child;
+                            return Center(
+                              child: CircularProgressIndicator(
+                                color: Colors.green,
+                                value: loadingProgress.expectedTotalBytes !=
+                                        null
+                                    ? loadingProgress.cumulativeBytesLoaded /
+                                        loadingProgress.expectedTotalBytes!
+                                    : null,
+                              ),
+                            );
+                          },
+                        ),
+                      ))
                 ],
               ),
             );
