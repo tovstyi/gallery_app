@@ -4,8 +4,10 @@ import 'responsive_safe_area.dart';
 
 class LoadingFailure extends StatelessWidget {
   final String errorText;
+  final bool swipeToReload;
 
-  const LoadingFailure({super.key, required this.errorText});
+  const LoadingFailure(
+      {super.key, required this.errorText, this.swipeToReload = true});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,8 @@ class LoadingFailure extends StatelessWidget {
                   vertical:
                       size.width > 412 ? size.width * 0.09 : size.width * 0.1),
               child: Text(
-                "$errorText. Swipe to refresh the page.",
+                errorText +
+                    (swipeToReload ? ". Swipe to refresh the page." : ""),
                 overflow: TextOverflow.fade,
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -34,6 +37,7 @@ class LoadingFailure extends StatelessWidget {
             ),
             Image(
               height: size.height * 0.2,
+              width: size.width,
               image: const AssetImage("assets/images/homePageImages/error.png"),
             ),
           ],

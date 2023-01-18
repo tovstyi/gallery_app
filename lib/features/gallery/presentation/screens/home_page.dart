@@ -6,7 +6,7 @@ import '../../domain/entities/post_entity.dart';
 import '../bloc/home_page/home_page_cubit.dart';
 import '../widgets/gallery_post.dart';
 import '../widgets/gallery_post_skeleton.dart';
-import '../widgets/post_loading_failure.dart';
+import '../widgets/loading_failure.dart';
 import '../widgets/responsive_safe_area.dart';
 
 class HomePage extends StatefulWidget {

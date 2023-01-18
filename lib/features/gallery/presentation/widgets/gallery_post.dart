@@ -1,8 +1,11 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:page_transition/page_transition.dart';
 
+import '../../../../injection_container.dart';
 import '../../domain/entities/post_entity.dart';
+import '../bloc/view_photo/view_photo_cubit.dart';
+import '../screens/view_photo_page.dart';
 
 class GalleryPost extends StatefulWidget {
   final PostEntity post;
@@ -82,8 +85,15 @@ class _GalleryPost extends State<GalleryPost> {
     }
 
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, 'view_photo_page',
-          arguments: {'link': widget.post.imageUrls['regular']}),
+      onTap: () => Navigator.of(context).push(PageTransition(
+        child: BlocProvider<ViewPhotoCubit>(
+            create: (_) => sl<ViewPhotoCubit>(),
+            child: ViewPhotoPage(
+              link: widget.post.imageUrls["regular"],
+            )),
+        type: PageTransitionType.fade,
+        alignment: Alignment.center,
+      )),
       child: Padding(
         padding: EdgeInsets.symmetric(
             horizontal: widget.size.width > 412
