@@ -1,12 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
 
 import '../bloc/view_photo/view_photo_cubit.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_app_bar_title.dart';
-import '../widgets/loading_failure.dart';
+import '../widgets/rect_image.dart';
 import '../widgets/responsive_safe_area.dart';
 
 class ViewPhotoPage extends StatefulWidget {
@@ -28,7 +26,7 @@ class _ViewPhotoPage extends State<ViewPhotoPage> {
   Widget build(BuildContext context) {
     final args =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
-    if (args != null && args!['link'] != "") {
+    if (args != null && args['link'] != "") {
       link = args['link'];
     } else if (widget.link != null) {
       link = widget.link!;
@@ -65,38 +63,10 @@ class _ViewPhotoPage extends State<ViewPhotoPage> {
                         padding: EdgeInsets.all(size.width > 412
                             ? size.height * 0.03
                             : size.height * 0.02),
-                        child: ClipRRect(
-                          borderRadius:
-                              BorderRadius.circular(size.height * 0.03),
-                          child: link != null && link!.isNotEmpty
-                              ? Image.network(
-                                  link!,
-                                  fit: BoxFit.fitHeight,
-                                  height: size.height,
-                                  width: size.width,
-                                  loadingBuilder: (BuildContext context,
-                                      Widget child,
-                                      ImageChunkEvent? loadingProgress) {
-                                    if (loadingProgress == null) return child;
-                                    return Center(
-                                      child: CircularProgressIndicator(
-                                        color: Colors.green,
-                                        value: loadingProgress
-                                                    .expectedTotalBytes !=
-                                                null
-                                            ? loadingProgress
-                                                    .cumulativeBytesLoaded /
-                                                loadingProgress
-                                                    .expectedTotalBytes!
-                                            : null,
-                                      ),
-                                    );
-                                  },
-                                )
-                              : const LoadingFailure(
-                                  errorText: "Bad photo link ...",
-                                  swipeToReload: false,
-                                ),
+                        child: RectImage(
+                          size: size,
+                          imageHeight: 1,
+                          imageLink: link,
                         ))
                   ],
                 ),

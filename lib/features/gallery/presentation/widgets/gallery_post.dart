@@ -6,6 +6,7 @@ import '../../../../injection_container.dart';
 import '../../domain/entities/post_entity.dart';
 import '../bloc/view_photo/view_photo_cubit.dart';
 import '../screens/view_photo_page.dart';
+import 'rect_image.dart';
 
 class GalleryPost extends StatefulWidget {
   final PostEntity post;
@@ -71,19 +72,6 @@ class _GalleryPost extends State<GalleryPost> {
       );
     }
 
-    Widget postImage() {
-      return Container(
-          height: widget.size.height * 0.3,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(widget.size.height * 0.03),
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: NetworkImage(
-                  widget.post.imageUrls["thumb"]!,
-                ),
-              )));
-    }
-
     return GestureDetector(
       onTap: () => Navigator.of(context).push(PageTransition(
         child: BlocProvider<ViewPhotoCubit>(
@@ -104,7 +92,15 @@ class _GalleryPost extends State<GalleryPost> {
                 : widget.size.height * 0.01),
         child: Stack(
           alignment: Alignment.bottomLeft,
-          children: [postImage(), postGradient(), postDetails()],
+          children: [
+            RectImage(
+              size: widget.size,
+              imageLink: widget.post.imageUrls["thumb"],
+              imageHeight: 0.3,
+            ),
+            postGradient(),
+            postDetails()
+          ],
         ),
       ),
     );
