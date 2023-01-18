@@ -1,16 +1,15 @@
-# test_app
+# gallery_app
 
-A new Flutter project.
+## Description
 
-## Getting Started
+App allows you to view photo posts named "gallery".
+When tapping the post you can open it in other page in full
+resolution.
 
-This project is a starting point for a Flutter application.
+## To make splash screen you also need run following command:
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```angular2html
+    $ flutter clean 
+    $ flutter pub get
+    $ flutter pub run flutter_native_splash:create
+```
