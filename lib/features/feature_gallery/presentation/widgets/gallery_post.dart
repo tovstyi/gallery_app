@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 
-import '../../../../injection_container.dart';
+import '../../../../core/injection_container.dart';
 import '../../domain/entities/post_entity.dart';
 import '../bloc/view_photo/view_photo_cubit.dart';
 import '../screens/view_photo_page.dart';

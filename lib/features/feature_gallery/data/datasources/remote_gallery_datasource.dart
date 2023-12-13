@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-import '../../../../core/constants/constants.dart';
+import '../../../../core/constants/api.dart';
 import '../../../../core/exceptions/exceptions.dart';
 import '../models/post_model.dart';
 

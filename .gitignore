@@ -45,4 +45,3 @@ app.*.map.json
 !/windows/
 !/web/
 !/linux/
-!/web/

@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-import 'content_wrap.dart';
+import 'core/injection_container.dart' as inj;
 import 'core/routes/route.dart' as router;
-import 'injection_container.dart' as inj;
 
 main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   await inj.init();
   runApp(const GalleryApp());
 }
@@ -24,7 +20,6 @@ class GalleryApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       routes: router.Route.routes,
-      home: const ContentWrap(),
     );
   }
 }

@@ -26,58 +26,50 @@ class _HomePage extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HomePageCubit, HomePageState>(
-      listener: (_, state) {
-        if (state is GalleryPostsLoaded) {
-          galleryPosts = state.galleryPosts;
-        }
-      },
-      builder: (context, state) {
-        return BlocBuilder<HomePageCubit, HomePageState>(
-          buildWhen: (oldState, newState) => oldState != newState,
-          builder: (context, state) {
-            return ResponsiveSafeArea(
-              builder: (BuildContext context, Size size) {
-                return Stack(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          vertical: size.width > 412
-                              ? size.height * 0.01
-                              : size.height * 0.015),
-                      child: RefreshIndicator(
-                        color: Colors.blue,
-                        onRefresh: () async =>
-                            context.read<HomePageCubit>().loadGalleryPosts(),
-                        child: ListView.builder(
-                            physics: const AlwaysScrollableScrollPhysics(),
-                            scrollDirection: Axis.vertical,
-                            itemCount: state is LoadingGalleryPosts
-                                ? 6
-                                : state is GalleryPostsLoaded
-                                    ? state.galleryPosts.length
-                                    : 0,
-                            itemBuilder: (BuildContext context, int index) =>
-                                state is! LoadingGalleryPosts
-                                    ? GalleryPost(
-                                        post: galleryPosts[index],
-                                        size: size,
-                                      )
-                                    : const GalleryPostSkeleton()),
-                      ),
-                    ),
-                    Visibility(
-                        visible: state is LoadingGalleryPostsFailed,
-                        child: const LoadingFailure(
-                          errorText: 'Failed to load posts from server',
-                        )),
-                  ],
-                );
-              },
-            );
-          },
-        );
-      },
-    );
+    return BlocListener<HomePageCubit, HomePageState>(listener: (_, state) {
+      if (state is GalleryPostsLoaded) {
+        galleryPosts = state.galleryPosts;
+      }
+    }, child:
+        BlocBuilder<HomePageCubit, HomePageState>(builder: (context, state) {
+      return ResponsiveSafeArea(
+        builder: (BuildContext context, Size size) {
+          return Stack(
+            children: [
+              Padding(
+                  padding: EdgeInsets.symmetric(
+                      vertical: size.width > 412
+                          ? size.height * 0.01
+                          : size.height * 0.015),
+                  child: RefreshIndicator(
+                    color: Colors.blue,
+                    onRefresh: () async =>
+                        context.read<HomePageCubit>().loadGalleryPosts(),
+                    child: ListView.builder(
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        scrollDirection: Axis.vertical,
+                        itemCount: state is LoadingGalleryPosts
+                            ? 6
+                            : state is GalleryPostsLoaded
+                                ? state.galleryPosts.length
+                                : 0,
+                        itemBuilder: (BuildContext context, int index) =>
+                            state is! LoadingGalleryPosts
+                                ? GalleryPost(
+                                    post: galleryPosts[index],
+                                    size: size,
+                                  )
+                                : const GalleryPostSkeleton()),
+                  )),
+              Visibility(
+                  visible: state is LoadingGalleryPostsFailed,
+                  child: const LoadingFailure(
+                    errorText: 'Failed to load posts from server',
+                  )),
+            ],
+          );
+        },
+      );
+    }));
   }
 }

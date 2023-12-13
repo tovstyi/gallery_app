@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class CustomAppBarTitle extends StatelessWidget {
+class StyledAppBarTitle extends StatelessWidget {
   final String text;
 
-  const CustomAppBarTitle({super.key, required this.text});
+  const StyledAppBarTitle({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) {

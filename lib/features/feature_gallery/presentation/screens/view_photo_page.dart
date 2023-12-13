@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/view_photo/view_photo_cubit.dart';
-import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_app_bar_title.dart';
 import '../widgets/rect_image.dart';
 import '../widgets/responsive_safe_area.dart';
@@ -40,9 +39,7 @@ class _ViewPhotoPage extends State<ViewPhotoPage> {
           builder: (context, state) {
             return ResponsiveSafeArea(builder: (context, size) {
               return Scaffold(
-                appBar: CustomAppBar(
-                  height: size.height,
-                  width: size.width,
+                appBar: AppBar(
                   leading: MaterialButton(
                     onPressed: () => Navigator.of(context).pop(),
                     child: Icon(
@@ -53,7 +50,7 @@ class _ViewPhotoPage extends State<ViewPhotoPage> {
                       color: Colors.black,
                     ),
                   ),
-                  title: const CustomAppBarTitle(
+                  title: const StyledAppBarTitle(
                     text: 'Back',
                   ),
                 ),

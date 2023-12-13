@@ -2,12 +2,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 
-import 'features/feature_gallery/data/datasources/remote_gallery_datasource.dart';
-import 'features/feature_gallery/data/repositories/gallery_repository.dart';
-import 'features/feature_gallery/data/repositories/gallery_repository_impl.dart';
-import 'features/feature_gallery/domain/usecases/load_gallery_posts_usecase.dart';
-import 'features/feature_gallery/presentation/bloc/home_page/home_page_cubit.dart';
-import 'features/feature_gallery/presentation/bloc/view_photo/view_photo_cubit.dart';
+import '../features/feature_gallery/data/datasources/remote_gallery_datasource.dart';
+import '../features/feature_gallery/data/repositories/gallery_repository.dart';
+import '../features/feature_gallery/data/repositories/gallery_repository_impl.dart';
+import '../features/feature_gallery/domain/usecases/load_gallery_posts_usecase.dart';
+import '../features/feature_gallery/presentation/bloc/home_page/home_page_cubit.dart';
+import '../features/feature_gallery/presentation/bloc/view_photo/view_photo_cubit.dart';
 
 final sl = GetIt.instance;
 
