@@ -5,7 +5,6 @@ abstract class Failure extends Equatable {
   List<Object> get props => [];
 }
 
-// General failures
 class ServerFailure extends Failure {
   final String message;
   final int statusCode;
@@ -16,19 +15,4 @@ class ServerFailure extends Failure {
   List<Object> get props => [message, statusCode];
 }
 
-class CacheFailure extends Failure {}
-
-// class NetworkConnectionFailure extends Failure {}
-
-class ValidationFailure extends Failure {
-  final String field;
-
-  ValidationFailure({required this.field});
-
-  @override
-  List<Object> get props => [field];
-}
-
-class UnauthorizedFailure extends Failure {}
-
-class SocketFailure extends Failure {}
+class NetworkConnectionFailure extends Failure {}
